@@ -71,6 +71,6 @@ aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf
 
 7. Launch the application service b runnin the following command.
 
-   aws ecs create-service --cluster BlogCluster --cli-input-json file://sample-app-service.json
+   aws ecs create-service --cluster BlogCluster --cli-input-json file://sample-app-service.json 
 
 
