@@ -12,7 +12,7 @@
   "enableExecuteCommand": true,
   "launchType": "EC2",
   "propagateTags": "SERVICE",
-  "serviceName": "app-service2",
+  "serviceName": "app-service",
   "loadBalancers": [
     {
       "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:566752651623:targetgroup/BlogEcsInstanceTg/bd61673a9ab839d3",
