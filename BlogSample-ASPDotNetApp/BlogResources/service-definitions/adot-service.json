@@ -15,10 +15,11 @@
         "awsvpcConfiguration": {
             "assignPublicIp": "ENABLED",
           "securityGroups": [
-            "sg-0119f09da0589aed6"
+            "sg-0135a4fbc463be9e4",
+            "sg-01107b56552820a10"
           ],
           "subnets": [
-            "subnet-0769b9d9d1bf844dc"
+            "subnet-038376b7e9d50ac72"
           ]
            }
     },
@@ -40,7 +41,7 @@
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
-                "awslogs-create-group": "True",
+                "awslogs-create-group": "true",
                 "awslogs-group": "/ecs/blog-app-service-connect-proxy",
                 "awslogs-region": "us-east-1",
                 "awslogs-stream-prefix": "service-connect-proxy"

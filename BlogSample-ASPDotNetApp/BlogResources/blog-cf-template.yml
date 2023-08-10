@@ -302,6 +302,7 @@ Resources:
         - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
         - arn:aws:iam::aws:policy/AmazonPrometheusRemoteWriteAccess
         - arn:aws:iam::aws:policy/AmazonOpenSearchServiceFullAccess
+        - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
     
 
   AdotConfigAccessPolicy:
@@ -406,47 +407,47 @@ Resources:
             TargetGroupArn: !Ref TargetGroup
             Type: "forward"
    
-#RDS
-  BlogDBSubnetGroup:
-    Type: 'AWS::RDS::DBSubnetGroup'
-    Properties:
-      DBSubnetGroupDescription: 'Subnet group for my SQL Server Express DB'
-      SubnetIds:
-        - !Ref BlogPrivateSubnetAZ1
-        - !Ref BlogPrivateSubnetAZ2
-    DependsOn: 
-    - BlogPrivateSubnetAZ1
-    - BlogPrivateSubnetAZ2
+# #RDS
+#   BlogDBSubnetGroup:
+#     Type: 'AWS::RDS::DBSubnetGroup'
+#     Properties:
+#       DBSubnetGroupDescription: 'Subnet group for my SQL Server Express DB'
+#       SubnetIds:
+#         - !Ref BlogPrivateSubnetAZ1
+#         - !Ref BlogPrivateSubnetAZ2
+#     DependsOn: 
+#     - BlogPrivateSubnetAZ1
+#     - BlogPrivateSubnetAZ2
 
-  BlogRDSSecurityGroup:
-    Type: 'AWS::EC2::SecurityGroup'
-    Properties:
-      GroupDescription: 'Allows sql connections from the ecs app container'
-      GroupName: 'rds-db-sq'
-      VpcId: !Ref BlogVPC
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 1433
-          ToPort: 1433
-          SourceSecurityGroupId: !Ref BlogEcsSecurityGroup
+#   BlogRDSSecurityGroup:
+#     Type: 'AWS::EC2::SecurityGroup'
+#     Properties:
+#       GroupDescription: 'Allows sql connections from the ecs app container'
+#       GroupName: 'rds-db-sq'
+#       VpcId: !Ref BlogVPC
+#       SecurityGroupIngress:
+#         - IpProtocol: tcp
+#           FromPort: 1433
+#           ToPort: 1433
+#           SourceSecurityGroupId: !Ref BlogEcsSecurityGroup
   
-  BlogDBInstance:
-    Type: 'AWS::RDS::DBInstance'
-    DeletionPolicy: Delete
-    Properties:
-      DBInstanceIdentifier: 'BlogDB'
-      StorageType: 'gp3'
-      AllocatedStorage: '20'
-      MaxAllocatedStorage: 1000
-      DBInstanceClass: 'db.t3.small'
-      PubliclyAccessible: false
-      EnablePerformanceInsights: true
-      Engine: 'sqlserver-ex'
-      MasterUsername: 'admin'
-      MasterUserPassword: 'Password123!'
-      DBSubnetGroupName: !Ref BlogDBSubnetGroup
-      VPCSecurityGroups:
-        - !GetAtt BlogRDSSecurityGroup.GroupId
+#   BlogDBInstance:
+#     Type: 'AWS::RDS::DBInstance'
+#     DeletionPolicy: Delete
+#     Properties:
+#       DBInstanceIdentifier: 'BlogDB'
+#       StorageType: 'gp3'
+#       AllocatedStorage: '20'
+#       MaxAllocatedStorage: 1000
+#       DBInstanceClass: 'db.t3.small'
+#       PubliclyAccessible: false
+#       EnablePerformanceInsights: true
+#       Engine: 'sqlserver-ex'
+#       MasterUsername: 'admin'
+#       MasterUserPassword: 'Password123!'
+#       DBSubnetGroupName: !Ref BlogDBSubnetGroup
+#       VPCSecurityGroups:
+#         - !GetAtt BlogRDSSecurityGroup.GroupId
 
 
 
@@ -632,15 +633,15 @@ Outputs:
     Value: !GetAtt BlogOpenSearchDomain.DomainEndpoint
   BlogOpenSearchDomainDashboard:
     Value: !Join [ '', [ !GetAtt BlogOpenSearchDomain.DomainEndpoint, /_dashboards]]
-  BlogDBInstance:
-    Description: Add to application Connection String
-    Value: !GetAtt BlogDBInstance.Endpoint.Address
-  BlogDBInstanceUsername:
-   Description: Username for the database instance
-   Value: "admin"
-  BlogDbInstancePassword:
-    Description: Password for the database instance
-    Value: "Password123!"
+  # BlogDBInstance:
+  #   Description: Add to application Connection String
+  #   Value: !GetAtt BlogDBInstance.Endpoint.Address
+  # BlogDBInstanceUsername:
+  #  Description: Username for the database instance
+  #  Value: "admin"
+  # BlogDbInstancePassword:
+  #   Description: Password for the database instance
+  #   Value: "Password123!"
   AppRepositoryUrl:
     Description: The URL to upload the sample application
     Value: !Sub '${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${AppECRRepository}'

@@ -50,7 +50,7 @@ namespace BlogSample_ASPDotNetApp
             });
 
             #region OpenTelemetry
-            var serviceName = "GadgetsOnline";
+            var serviceName = "sample-app";
             var serviceVersion = "1.0";
             //var MyActivitySource = new ActivitySource(serviceName);
 

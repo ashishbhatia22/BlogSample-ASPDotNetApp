@@ -33,11 +33,13 @@ namespace BlogSample_ASPDotNetApp.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogDebug("A user has visited the site.");
             return View();
         }
 
         public IActionResult Privacy()
         {
+            _logger.LogDebug("The Privacy link was clicked by the user");
             return View();
         }
 

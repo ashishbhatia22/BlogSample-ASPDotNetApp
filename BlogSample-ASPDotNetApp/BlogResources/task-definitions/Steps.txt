@@ -33,7 +33,6 @@ dotnet add package OpenTelemetry.Instrumentation.AWS
     -- A ECS cluster with 1 EC2 instance node based on linux.
     -- A cloudmap Namcespace to easily connect services on your cluster
     -- 2 ECR repositories for pushing your application and custom adot images.
-    -- An RDS Database based on MS Sql Express
     -- Amazon Opensearch Cluster to send logs.
     -- Amazon Managed Prometheus to send metrics.
    
@@ -47,16 +46,10 @@ aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf
     -- Go to your ECR Repository that was created in the cloudformation template and follow the build commands to push your image
        to the blog-adot-custom repository so ECS can pull the image when deploying the container on your cluster.
 
-3. Update the application's connection string to the rds endpoint and set the username and password.
 
-    -- the endpoint can be found in the CloudFormation stack
-    -- username = admin
-    -- password = Password123!
-       
+3. Build application image and upload to ECR using the upload commands found in the repository.
 
-4. Build application image and upload to ECR using the upload commands found in the repository.
-
-5. Update and register and deploy your adot task defintion.
+4. Update and register and deploy your adot task defintion.
 
     -- open up adot.json under GadgetsOnline/BlogResources/task-definitions/final Set your image to your ecr repository images.
     -- Update the ecsTaskRole and ecsTaskExecutionRole with the respective arns from the cloudwatch output.
@@ -64,7 +57,7 @@ aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf
 
         aws ecs register-task-definition --cli-input-json file://adot-task-definition.json --region us-east-1
 
-6. Updated and deploy your ECS Service.
+5. Updated and deploy your ECS Service.
     -- Add the private subnets from the cloudformation output to the service-connect-adot.json
     -- Add the default security group to your service and the AdotService Security group to your service.
     -- Run the following command to launch your service.
@@ -72,36 +65,12 @@ aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf
   aws ecs create-service --cluster BlogCluster --cli-input-json file://adot-service.json
 
 
- 7. Register App Task Definition
+ 6. Register App Task Definition
 
-     aws ecs register-task-definition --cli-input-json file://gadgets-online-firelens-task-definition.json --region us-east-1
+     aws ecs register-task-definition --cli-input-json file://sample-app-task-definition.json --region us-east-1
 
 7. Launch the application service b runnin the following command.
 
-   aws ecs create-service --cluster BlogCluster --cli-input-json file://gadgets-online-service.json
+   aws ecs create-service --cluster BlogCluster --cli-input-json file://sample-app-service.json
 
 
-
-
-
-
-6. Run task
-aws ecs run-task --cluster blog-cluster --task-definition gadgets-online:9 --count 1 --region us-east-1
-
-docker run -p 8000:8000 -e OTEL_EXPORTER_OTLP_ENDPOINT=http://adot:4317 566752651623.dkr.ecr.us-east-1.amazonaws.com/gadgets-online 
-
-
-Configure Permisisons in Opensearch Cluster
-
-Log in as Admin. 
-
-Go to roles, For this demo, we will go to all_access and map our IAM Task Role to give it access post logs.
-
-
-aws ecs create-service \
-    --cluster blog-cluster \
-    --service-name entire-solution \
-    --task-definition entire-solution:2 \
-    --launch-type EC2 \
-    --scheduling-strategy DAEMON \
-    --region us-east-1
