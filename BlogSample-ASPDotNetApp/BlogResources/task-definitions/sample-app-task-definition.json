@@ -29,7 +29,7 @@
     },
     {
       "name": "sample-app",
-      "image": "566752651623.dkr.ecr.us-east-1.amazonaws.com/blog-app-repo:latest",
+      "image": "public.ecr.aws/g6m4m4a5/sample-app:latest",
       "essential": true,
       "cpu": 512,
       "memory": 1024,
