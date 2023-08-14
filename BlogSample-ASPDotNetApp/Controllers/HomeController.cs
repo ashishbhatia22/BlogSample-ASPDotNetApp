@@ -6,10 +6,11 @@ namespace BlogSample_ASPDotNetApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILoggerManager _logger;
+
         private static ActivitySource MyActivitySource { get; set; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILoggerManager logger)
         {
             _logger = logger;
         }
