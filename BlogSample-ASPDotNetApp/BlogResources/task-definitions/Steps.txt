@@ -69,7 +69,7 @@ aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf
 
      aws ecs register-task-definition --cli-input-json file://sample-app-task-definition.json --region us-east-1
 
-7. Launch the application service b runnin the following command.
+7. Launch the application service by runnin the following command.
 
    aws ecs create-service --cluster BlogCluster --cli-input-json file://sample-app-service.json 
 
