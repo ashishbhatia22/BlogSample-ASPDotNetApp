@@ -3,24 +3,8 @@ receivers:
     protocols:
       grpc:
         endpoint: 0.0.0.0:4317
-  awsecscontainermetrics:
-    collection_interval: 10s
 
 processors:
-  filter:
-    metrics:
-      include:
-        match_type: strict
-        metric_names:
-          - ecs.task.memory.utilized
-          - ecs.task.memory.reserved
-          - ecs.task.cpu.utilized
-          - ecs.task.cpu.reserved
-          - ecs.task.network.rate.rx
-          - ecs.task.network.rate.tx
-          - ecs.task.storage.read_bytes
-          - ecs.task.storage.write_bytes
-  
   batch:
 
 exporters:
@@ -34,16 +18,11 @@ exporters:
     loglevel: debug
 
 extensions:
-  health_check:
-  pprof:
-    endpoint: :1888
-  zpages:
-    endpoint: :55679
   sigv4auth:
     region: us-east-1 
     
 service:
-  extensions: [pprof, zpages, health_check, sigv4auth]
+  extensions: [sigv4auth]
   pipelines:
     traces:
       receivers:  [otlp]
@@ -53,7 +32,3 @@ service:
       receivers:  [otlp]
       processors: [batch]
       exporters:  [prometheusremotewrite]
-    # metrics/ecs:
-    #   receivers:  [awsecscontainermetrics]
-    #   processors: [filter]
-    #   exporters:  [logging, prometheusremotewrite]
