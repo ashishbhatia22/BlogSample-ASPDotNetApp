@@ -1,7 +1,7 @@
 {
   "family": "sample-app",
-  "taskRoleArn": "<YOUR-TASK-ROLE-IAM>",
-  "executionRoleArn": "<YOUR-TASK-EXECUTION-ROLE-IAM>",
+  "taskRoleArn": "arn:aws:iam::524935505455:role/cftemplate-ECSTaskRole-1P28CS9Q06HE8",
+  "executionRoleArn": "arn:aws:iam::524935505455:role/cftemplate-ECSTaskExecutionRole-GWUKZLIAM458",
   "networkMode": "bridge",
   "requiresCompatibilities": [
     "EC2"
@@ -29,7 +29,7 @@
     },
     {
       "name": "sample-app",
-      "image": "566752651623.dkr.ecr.us-east-1.amazonaws.com/blog-app-repo:latest",
+      "image": "public.ecr.aws/g6m4m4a5/sample-app:latest",
       "essential": true,
       "cpu": 512,
       "memory": 1024,
@@ -53,7 +53,7 @@
         "logDriver": "awsfirelens",
         "options": {
           "Name": "es",
-          "Host": "<YOUR-OPENSEARCH-ENDPOINT>",
+          "Host": "search-blog-os-domain-xy6u5vuubabcuvefwnhwhru6zi.us-east-1.es.amazonaws.com",
           "Port": "443",
           "Suppress_Type_Name": "On",
           "Index": "fl-fluentbit",

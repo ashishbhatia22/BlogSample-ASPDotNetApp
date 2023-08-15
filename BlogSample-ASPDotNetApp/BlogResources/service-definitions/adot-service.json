@@ -15,17 +15,18 @@
         "awsvpcConfiguration": {
             "assignPublicIp": "ENABLED",
           "securityGroups": [
-            "sg-0135a4fbc463be9e4",
-            "sg-01107b56552820a10"
+            "sg-08dc7266d1713b6a3",
+            "sg-0b6f3d0c76042250a"
           ],
           "subnets": [
-            "subnet-038376b7e9d50ac72"
+            "subnet-0769b9d9d1bf844dc",
+            "subnet-014156d9bac824bab"
           ]
            }
     },
     "platformVersion": "LATEST",
     "propagateTags": "SERVICE",
-    "serviceName": "adot-service",
+    "serviceName": "adot-service-2",
     "serviceConnectConfiguration": {
         "enabled": true,
         "services": [

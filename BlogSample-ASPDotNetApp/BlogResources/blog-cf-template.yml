@@ -620,7 +620,7 @@ Resources:
 
 
 Outputs:
-  APSReceiverEndpoint:
+  PrometheusReceiverEndpoint:
     Description: Add the Prometheus Endpoint to your adot config
     Value: !Join [ '', [ !GetAtt AmpWorkspace.PrometheusEndpoint, api/v1/remote_write]]
   ECSTaskExecutionRoleARN:
@@ -633,15 +633,6 @@ Outputs:
     Value: !GetAtt BlogOpenSearchDomain.DomainEndpoint
   BlogOpenSearchDomainDashboard:
     Value: !Join [ '', [ !GetAtt BlogOpenSearchDomain.DomainEndpoint, /_dashboards]]
-  # BlogDBInstance:
-  #   Description: Add to application Connection String
-  #   Value: !GetAtt BlogDBInstance.Endpoint.Address
-  # BlogDBInstanceUsername:
-  #  Description: Username for the database instance
-  #  Value: "admin"
-  # BlogDbInstancePassword:
-  #   Description: Password for the database instance
-  #   Value: "Password123!"
   AppRepositoryUrl:
     Description: The URL to upload the sample application
     Value: !Sub '${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${AppECRRepository}'
@@ -652,13 +643,13 @@ Outputs:
     Description: Private subnet Id for your Service Definition
     Value: !GetAtt BlogPrivateSubnetAZ2.SubnetId
   BlogEcsAppSecurityGroup:
-    Description: App Secuirty group for your Applicaiton Task
+    Description: App Security group for your Applicaiton Task
     Value: !Ref BlogEcsSecurityGroup
-  BlogAdotCollectorSecurityGroup:
+  SecurityGroupADOT:
     Description: Allows metrics and log traffic on port 4317
     Value: !Ref BlogAdotCollectorSecurityGroup
-  DefaultSecurityGroup:
-    Description: Default Secuirty group for your Applicaiton Task
+  SecurityGroupDefault:
+    Description: Default Secuirty group for your Application Task
     Value: 
       Fn::GetAtt : ["BlogVPC", "DefaultSecurityGroup"]
   TargetGroupArn:

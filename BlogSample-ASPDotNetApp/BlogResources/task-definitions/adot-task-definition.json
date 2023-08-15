@@ -1,8 +1,8 @@
 {
   "family": "blog-adot-task-definition",
   "networkMode": "awsvpc",
-  "taskRoleArn": "<YOUR-TASK-ROLE-IAM>",
-  "executionRoleArn": "<YOUR-TASK-EXECUTION-ROLE-IAM>",
+  "taskRoleArn": "arn:aws:iam::524935505455:role/cftemplate-ECSTaskRole-1P28CS9Q06HE8",
+  "executionRoleArn": "arn:aws:iam::524935505455:role/cftemplate-ECSTaskExecutionRole-GWUKZLIAM458",
   "memory": "1024",
   "cpu": "512",
   "requiresCompatibilities": [
@@ -34,7 +34,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-create-group": true,
+          "awslogs-create-group": "true",
           "awslogs-group": "/ecs/blog-adot",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
