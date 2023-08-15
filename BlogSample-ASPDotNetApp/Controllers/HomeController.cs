@@ -6,10 +6,11 @@ namespace BlogSample_ASPDotNetApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private static ActivitySource MyActivitySource { get; set; }
+        private readonly ILoggerManager _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private static ActivitySource? MyActivitySource { get; set; }
+
+        public HomeController(ILoggerManager logger)
         {
             _logger = logger;
         }
@@ -21,19 +22,19 @@ namespace BlogSample_ASPDotNetApp.Controllers
         public string OutgoingHttp()
         {
             //Custom Traces
-            MyActivitySource = new ActivitySource("test", "test");
+            MyActivitySource = new ActivitySource("OutgoingHttpCall", "1");
             using var activity = MyActivitySource.StartActivity("VisitHome", ActivityKind.Server); // this will be translated to a X-Ray Segment
             activity?.SetTag("http.method", "GET");
-            activity?.SetTag("http.url", "http://www.bookstorecore.com/Books");
-            activity?.SetTag("http.page", "BooksIndex");
+            activity?.SetTag("http.url", "http://www.sample-app.com/outgoing-http-call");
+            activity?.SetTag("http.page", "HomeIndex");
 
             _ = httpClient.GetAsync("https://aws.amazon.com").Result;
-            return "success";
+            return "Successfully invoked the Http Call to aws.amazon.com";
         }
 
         public IActionResult Index()
         {
-            _logger.LogDebug("A user has visited the site.");
+            _logger.LogDebug("A user has visited the sample site.");
             return View();
         }
 
