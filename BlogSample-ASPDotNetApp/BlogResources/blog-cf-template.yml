@@ -522,7 +522,7 @@ Resources:
             Principal:
               AWS: '*'
             Action: 'es:*'
-            Resource: 'arn:aws:es:us-east-1:566752651623:domain/blog-os-domain/*'
+            Resource: 'arn:aws:es:us-east-1:${AWS::AccountId}:domain/blog-os-domain/*'
       AdvancedOptions:
         rest.action.multi.allow_explicit_index: 'true'
         override_main_response_version: 'true'
