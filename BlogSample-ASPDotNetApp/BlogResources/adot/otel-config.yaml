@@ -13,7 +13,7 @@ exporters:
     auth:
       authenticator: sigv4auth
   awsxray:
-   region: us-east-1
+    region: us-east-1
   logging:
     loglevel: debug
 
