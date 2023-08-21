@@ -184,13 +184,6 @@ Resources:
       IpProtocol: '-1'
       CidrIp: 0.0.0.0/0
 
-
-#ECR Section
-  AppECRRepository:
-    Type: 'AWS::ECR::Repository'
-    Properties:
-      RepositoryName: 'blog-app-repo'
-
 #ECS Section
  
   BlogCapacityProvider:
@@ -633,9 +626,6 @@ Outputs:
     Value: !GetAtt BlogOpenSearchDomain.DomainEndpoint
   BlogOpenSearchDomainDashboard:
     Value: !Join [ '', [ !GetAtt BlogOpenSearchDomain.DomainEndpoint, /_dashboards]]
-  AppRepositoryUrl:
-    Description: The URL to upload the sample application
-    Value: !Sub '${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/${AppECRRepository}'
   BlogPrivateSubnetAz1Id:
     Description: Private subnet Id for your Service Definition
     Value: !GetAtt BlogPrivateSubnetAZ1.SubnetId
