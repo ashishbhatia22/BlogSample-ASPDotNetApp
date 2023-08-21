@@ -38,18 +38,7 @@ dotnet add package OpenTelemetry.Instrumentation.AWS
    
 aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf-test-30 --capabilities CAPABILITY_NAMED_IAM
 
-2. Create custom ADOT image and push to ECR
-
-    -- Update the prometheusremotewrite endpoint in the adot-config.yaml file with your Amazon Managed Prometheus endpoint that
-        output found in the CloudFormation Stack
-
-    -- Go to your ECR Repository that was created in the cloudformation template and follow the build commands to push your image
-       to the blog-adot-custom repository so ECS can pull the image when deploying the container on your cluster.
-
-
-3. Build application image and upload to ECR using the upload commands found in the repository.
-
-4. Update and register and deploy your adot task defintion.
+2. Update and register and deploy your adot task defintion.
 
     -- open up adot.json under GadgetsOnline/BlogResources/task-definitions/final Set your image to your ecr repository images.
     -- Update the ecsTaskRole and ecsTaskExecutionRole with the respective arns from the cloudwatch output.
@@ -57,7 +46,7 @@ aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf
 
         aws ecs register-task-definition --cli-input-json file://adot-task-definition.json --region us-east-1
 
-5. Updated and deploy your ECS Service.
+3. Updated and deploy your ECS Service.
     -- Add the private subnets from the cloudformation output to the service-connect-adot.json
     -- Add the default security group to your service and the AdotService Security group to your service.
     -- Run the following command to launch your service.
@@ -65,11 +54,11 @@ aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf
   aws ecs create-service --cluster BlogCluster --cli-input-json file://adot-service.json
 
 
- 6. Register App Task Definition
+4. Register App Task Definition
 
      aws ecs register-task-definition --cli-input-json file://sample-app-task-definition.json --region us-east-1
 
-7. Launch the application service by runnin the following command.
+5. Launch the application service by runnin the following command.
 
    aws ecs create-service --cluster BlogCluster --cli-input-json file://sample-app-service.json 
 
