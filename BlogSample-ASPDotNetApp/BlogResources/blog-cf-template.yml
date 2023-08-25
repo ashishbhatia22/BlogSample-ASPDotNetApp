@@ -158,7 +158,10 @@ Resources:
         - IpProtocol: 'tcp'
           FromPort: 32768 #Dynamic Port Mapping for Bridge Mode.
           ToPort: 65535          
-          SourceSecurityGroupId: !Ref BlogLoadBalancerSecurityGroup          
+          SourceSecurityGroupId: !Ref BlogLoadBalancerSecurityGroup
+      SecurityGroupEgress:
+        - IpProtocol: '-1'
+          CidrIp: 0.0.0.0/0         
 
   BlogAdotCollectorSecurityGroup:
     Type: 'AWS::EC2::SecurityGroup'
@@ -167,15 +170,17 @@ Resources:
       GroupName: blog-adot-sg
       VpcId: !Ref BlogVPC
       SecurityGroupIngress:
-        - 
-          IpProtocol: '-1'    
+        - IpProtocol: '-1'    
           SourceSecurityGroupId:
             Fn::GetAtt : ["BlogVPC", "DefaultSecurityGroup"]
-        - 
-          IpProtocol: '-1'
+        - IpProtocol: '-1'
           SourceSecurityGroupId:
             !Ref BlogEcsSecurityGroup
+      SecurityGroupEgress:
+        - IpProtocol: '-1'
+          CidrIp: 0.0.0.0/0
 
+        
   VPCDefaultSecurityGroupIngress:
     Type: AWS::EC2::SecurityGroupIngress
     Properties:
@@ -389,6 +394,9 @@ Resources:
           FromPort: 443
           ToPort: 443
           CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: '-1'
+          CidrIp: 0.0.0.0/0
 
   BlogLoadBalancer:
     Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
@@ -488,12 +496,13 @@ Resources:
     Type: AWS::KMS::Key
     Properties:
       Enabled: true
+      EnableKeyRotation: true
       KeyPolicy:
         Version: 2012-10-17
         Statement:
           - Effect: Allow
             Principal:
-              AWS: "*"
+              Service: "es.amazonaws.com"
             Action:
               - kms:Encrypt
               - kms:Decrypt
@@ -527,7 +536,7 @@ Resources:
       DomainName: 'blog-os-domain'  
       ClusterConfig:
         DedicatedMasterEnabled: false
-        InstanceCount: 1
+        InstanceCount: 3
         ZoneAwarenessEnabled: false
         InstanceType: 'r6g.large.search'
       EBSOptions:
@@ -553,8 +562,8 @@ Resources:
         rest.action.multi.allow_explicit_index: 'true'
         override_main_response_version: 'true'
       EncryptionAtRestOptions:
-        Enabled: true
-        KmsKeyId: !Ref Key
+        Enabled: false
+        # KmsKeyId: !Ref Key
       AdvancedSecurityOptions:
         Enabled: true
         InternalUserDatabaseEnabled: true
