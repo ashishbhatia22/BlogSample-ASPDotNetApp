@@ -36,7 +36,7 @@ dotnet add package OpenTelemetry.Instrumentation.AWS
     -- Amazon Opensearch Cluster to send logs.
     -- Amazon Managed Prometheus to send metrics.
    
-aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf-test-30 --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf-test-40 --capabilities CAPABILITY_NAMED_IAM
 
 2. Update and register and deploy your adot task defintion.
 
