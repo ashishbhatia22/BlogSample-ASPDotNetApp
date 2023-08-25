@@ -82,7 +82,6 @@ Resources:
       SubnetId: !Ref BlogPublicSubnetAZ1
       RouteTableId: !Ref BlogPublicRouteTable
     DependsOn: 
-      - BlogPublicSubnetAZ1
       - BlogPublicRoute
   PublicSubnetAZ2RouteTableAssociation:
     Type: 'AWS::EC2::SubnetRouteTableAssociation'
@@ -90,7 +89,6 @@ Resources:
       SubnetId: !Ref BlogPublicSubnetAZ2
       RouteTableId: !Ref BlogPublicRouteTable
     DependsOn: 
-      - BlogPublicSubnetAZ2
       - BlogPublicRoute
 
 #Private Subnet
@@ -562,8 +560,8 @@ Resources:
         rest.action.multi.allow_explicit_index: 'true'
         override_main_response_version: 'true'
       EncryptionAtRestOptions:
-        Enabled: false
-        # KmsKeyId: !Ref Key
+        Enabled: true
+        KmsKeyId: !Ref Key
       AdvancedSecurityOptions:
         Enabled: true
         InternalUserDatabaseEnabled: true
