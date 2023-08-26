@@ -40,7 +40,6 @@ aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf
 
 2. Update and register and deploy your adot task defintion.
 
-    -- open up adot.json under GadgetsOnline/BlogResources/task-definitions/final Set your image to your ecr repository images.
     -- Update the ecsTaskRole and ecsTaskExecutionRole with the respective arns from the cloudwatch output.
     -- Run the following command using the ecs cli to registier the adot test definition
 

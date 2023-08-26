@@ -13,9 +13,7 @@
     "launchType": "FARGATE",
     "networkConfiguration": {
         "awsvpcConfiguration": {
-            "assignPublicIp": "ENABLED",
           "securityGroups": [
-            "<SECURITY-GROUP-ID-DEFAULT>",
             "<SECURITY-GROUP-ID-ADOT>"
           ],
           "subnets": [
