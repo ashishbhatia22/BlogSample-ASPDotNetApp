@@ -1,31 +1,4 @@
-Steps
-
-1.) App Setup and Instrumentation
-
-
-Download the sample app and inspect the code.
-
-In the project the following nuget packages are installed to instrument the app.
-The first two are required for OpenTelemetry to function. 
-
-dotnet add package OpenTelemetry
-dotnet add package OpenTelemetry.Extensions.Hosting
-
-The following packages are instrumentation libraries that automatically generate traces and spans when you application makes
-calls to resources through http or sql requests.
-
-dotnet add package OpenTelemetry.Instrumentation.AspNetCore --prerelease
-dotnet add package OpenTelemetry.Instrumentation.Http --prerelease
-dotnet add package OpenTelemetry.Instrumentation.SqlClient --prerelease
-
-Note: Some of the packages are in a prerelease state as the standards for the attribute names are
-not currently stable. The functionality is stable but the names of the attributes are subject to change.
-
-
-Next, these packages format traces for AWS XRay to consume.
-
-dotnet add package OpenTelemetry.Contrib.Extensions.AWSXRay
-dotnet add package OpenTelemetry.Instrumentation.AWS
+Quick Steps
 
 1. Deploy the cloudformation template. This well deploy the following resources..
     -- A vpc with 2 availbility zones with a public and private subnet in each.
@@ -36,7 +9,7 @@ dotnet add package OpenTelemetry.Instrumentation.AWS
     -- Amazon Opensearch Cluster to send logs.
     -- Amazon Managed Prometheus to send metrics.
    
-aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf-test-40 --capabilities CAPABILITY_NAMED_IAM
+aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-solution-stack --capabilities CAPABILITY_NAMED_IAM --region us-east-1
 
 2. Update and register and deploy your adot task defintion.
 
@@ -50,7 +23,7 @@ aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf
     -- Add the default security group to your service and the AdotService Security group to your service.
     -- Run the following command to launch your service.
 
-  aws ecs create-service --cluster BlogCluster --cli-input-json file://adot-service.json
+  aws ecs create-service --cluster BlogCluster --cli-input-json file://adot-service.json --region us-east-1
 
 
 4. Register App Task Definition
@@ -59,6 +32,6 @@ aws cloudformation deploy --template ./blog-cf-template.yml --stack-name blog-cf
 
 5. Launch the application service by runnin the following command.
 
-   aws ecs create-service --cluster BlogCluster --cli-input-json file://sample-app-service.json 
+   aws ecs create-service --cluster BlogCluster --cli-input-json file://sample-app-service.json --region us-east-1
 
 

@@ -1,8 +1,8 @@
 {
   "family": "blog-adot-task-definition",
   "networkMode": "awsvpc",
-  "taskRoleArn": "arn:aws:iam::524935505455:role/cftemplate-ECSTaskRole-1P28CS9Q06HE8",
-  "executionRoleArn": "arn:aws:iam::524935505455:role/cftemplate-ECSTaskExecutionRole-GWUKZLIAM458",
+  "taskRoleArn": "<YOUR-TASK-ROLE-IAM>",
+  "executionRoleArn": "<YOUR-TASK-EXECUTION-ROLE-IAM>",
   "memory": "1024",
   "cpu": "512",
   "requiresCompatibilities": [
