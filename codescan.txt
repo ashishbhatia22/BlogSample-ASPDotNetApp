@@ -1,0 +1,47 @@
+             
+┌────────────────┐
+│ Debugging Info │
+└────────────────┘
+                  
+  SCAN ENVIRONMENT
+  versions    - semgrep 1.38.3 on python 3.11.5                        
+  environment - running in environment git, triggering event is unknown
+            
+  CONNECTION
+  Reporting start of scan for kilzdavi-test             
+  Fetching configuration from Semgrep Cloud Platform    
+  Enabled products: Semgrep Code, Semgrep Supply Chain                                                                                  
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 95 files tracked by git with 1672 Code rules, 580 Pro rules:
+                                                                                
+  Language      Rules   Files          Origin      Rules                        
+ ─────────────────────────────        ───────────────────                       
+  <multilang>      70     129          Community    1092                        
+  json              4       7          Pro rules     580                        
+  csharp           46       5                                                   
+  dockerfile        5       3                                                   
+  js              241       2                                                   
+  yaml             28       2                                                   
+                                                                                
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00                                                                                
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+Some files were skipped or only partially analyzed.
+  Scan was limited to files tracked by git.
+  Scan skipped: 52 files matching --exclude patterns
+  For a full list of skipped files, run semgrep with the --verbose flag.
+
+CI scan completed successfully.
+  Found 0 findings (0 blocking) from 1672 rules.
+  Uploading scan results  
+  Finalizing scan                                                                                         
+  View results in Semgrep Cloud Platform:
+    https://semgrep.dev/orgs/kilzdavi-test/findings
+    https://semgrep.dev/orgs/kilzdavi-test/supply-chain
