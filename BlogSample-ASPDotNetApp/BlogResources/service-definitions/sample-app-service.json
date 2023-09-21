@@ -35,6 +35,6 @@
       }
     }
   },
-  "taskDefinition": "sample-app"
+  "taskDefinition": "sample-app-task-definition"
 }
                         
