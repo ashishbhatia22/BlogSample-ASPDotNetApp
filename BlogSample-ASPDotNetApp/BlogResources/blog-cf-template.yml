@@ -614,6 +614,28 @@ Resources:
               - aps:DescribeWorkspace
             Resource: '*'
 
+  GrafanaOpenSearchPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      Roles: 
+       - !Ref AmazonGrafanaWorkspaceIAMRole
+      PolicyName: GrafanaOpenSearchPolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - es:ESHttpGet
+              - es:DescribeElasticsearchDomains
+              - es:ListDomainNames
+            Resource: '*'
+          - Effect: Allow
+            Action: 
+              - es:ESHttpPost
+            Resource:
+              - "arn:aws:es:*:*:domain/*/_msearch*"
+              - "arn:aws:es:*:*:domain/*/_opendistro/_pp"
+
   AmazonGrafanaWorkspaceIAMRole:
     Type: 'AWS::IAM::Role'
     Properties:
