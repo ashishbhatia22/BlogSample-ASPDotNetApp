@@ -41,6 +41,10 @@ $  aws ecs create-service --cluster BlogCluster --cli-input-json file://adot-ser
 $   aws ecs create-service --cluster BlogCluster --cli-input-json file://sample-app-service.json --region us-east-1
 ```
 
+## Monitoring Observability Signals
+See the [.NET Observability with OpenTelemetry blog series.]() blog series to learn 
+how to monitor observability signals from the sample application.
+
 ## License
 
 This library is licensed under the MIT-0 License. See the LICENSE file.
