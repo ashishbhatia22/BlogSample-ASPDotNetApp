@@ -5,7 +5,7 @@
 ## Introduction
 This sample application is designed to demonstrate how to instrument .NET applications using OpenTelemetry.
 It should be used alongside the [.NET Observability with OpenTelemetry blog series.]() blog series for optimal
-understanding and integration.
+understanding and integration with AWS services.
 
 ## Getting Started
 
@@ -35,7 +35,7 @@ $  aws ecs create-service --cluster BlogCluster --cli-input-json file://adot-ser
 ## Update and Deploy the Application Service
 
 1. Add the "targetGroupArn" from the CloudFormation output to the sample-app-service.json.
-2. Run the following command to launch application the service:
+2. Run the following command to launch the application service:
 
 ```zsh
 $   aws ecs create-service --cluster BlogCluster --cli-input-json file://sample-app-service.json --region us-east-1
